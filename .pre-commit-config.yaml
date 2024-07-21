@@ -1,0 +1,10 @@
+repos:
+-   repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: 'v16.0.0'
+    hooks:
+    -   id: clang-format
+        exclude: |
+            (?x)^(
+                .*\.proto|
+                .*\.json
+            )$
