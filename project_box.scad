@@ -22,12 +22,14 @@ function tab_offset(i, dim, num_tabs=2) = (dim*(i+1)/(num_tabs+1))-0.5*tab_lengt
 module project_box(outer_dims,
 		   wall_thickness=1,
 		   gap=0.1,
+		   humps=undef,
 		   // If true put snaps for top/bottom on sides rather than front/back.
 		   snaps_on_sides=false,
 		   corner_radius=0.0,
 		   top=true,
 		   top_cutouts=undef,
 		   ym_cutouts=undef,
+		   yp_cutouts=undef,
 		   screw_tab_d=0) {
   wall = wall_thickness;
   num_snaps = 2;
@@ -99,19 +101,24 @@ module project_box(outer_dims,
       difference() {
 	union() {
 	  rounded_box(dims, corner_radius);
-	  if (top)
-	    hump_positives(bumps, space_above_board, corner_radius, wall);
+	  if (top && humps)
+	    hump_positives(humps, space_above_board, corner_radius, wall);
 	}
 	iz = top ? (dims[2] - 2*wall) : dims[2];  // inner-z
 	translate(ones*wall) rounded_box([dims[0] - wall*2, dims[1]-wall*2, iz], corner_radius);
 	if (top) {
-	  hump_negatives(bumps, space_above_board, corner_radius, wall);
+	  if (humps) {
+	    hump_negatives(humps, space_above_board, corner_radius, wall);
+	  }
 	  // cutouts from the top surface
 	  if (top_cutouts)
 	    cutouts(top_cutouts, remove_len=100);
 	  // cutouts from the y=0 surface
 	  if (ym_cutouts)
 	    translate([0, 1+wall, 0]) rotate([90, 0, 0]) cutouts(ym_cutouts, remove_len=(wall+2));
+	  if (yp_cutouts)
+	    translate([outer_dims[0], outer_dims[1]-wall-0.01, 0])
+	      rotate([0, 0, 180]) rotate([90, 0, 0]) cutouts(yp_cutouts, remove_len=(wall+2));
 	}
       }
 
