@@ -4,7 +4,7 @@ This is an [OpenSCAD](https://openscad.org/) library to help with making project
 
 Note: there are more well-developed libraries for this purpose, such as https://github.com/mrWheel/YAPP_Box. I developed this library organically for my own projects, but it may not be the best for you.
 
-See the [Room133 Project Box](https://selectiveappeal.org/posts/room133-box/) post to see an example for how this can be used.
+See the [Room133 Project Box](https://selectiveappeal.org/posts/room133-box/) blog post to see an example for how this can be used.
 
 Some devices I've made which include boxes made with this system are:
 - [Plant133](https://github.com/chl33/Plant133)
